@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'antd/dist/antd.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Reducer from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -21,9 +22,9 @@ ReactDOM.render(
       window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
   >
-    <HashRouter>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </Provider>
   , document.getElementById('root'));
 

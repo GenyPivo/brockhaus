@@ -25,4 +25,13 @@ exports.getToken = async (req, res, next) => {
 
 exports.register = (req, res) => {
   // Registration
+  
+  const user = new User(req.body);
+
+  user.save((err, doc) => {
+    if (err) return res.json({ sucсess: false, err });
+    return res.status(200).json({
+      sucсess: true
+    })
+  });
 };

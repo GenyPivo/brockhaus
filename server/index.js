@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/', require('./routes/users'));
+app.use('/orders', require('./routes/orders'));
 
 app.use((err, req, res, next) => {
   handleError(err, res);

@@ -7,7 +7,7 @@ const { Title } = Typography;
 const { TextArea } = Input;
 
 
-function OrderPage(props) {
+export default function(props) {
 
   const [TitleValue, setTitleValue] = useState("")
   const [DescriptionValue, setDescriptionValue] = useState("")
@@ -92,6 +92,4 @@ function OrderPage(props) {
       </Form>
     </div>
   )
-}
-
-export default OrderPage
+};

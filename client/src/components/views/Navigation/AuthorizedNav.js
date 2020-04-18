@@ -10,10 +10,10 @@ export default function() {
   return (
     <Menu mode='horizontal' theme='dark'>
       <Menu.Item key="history">
-        <NavLink to="/history">Bestellliste</NavLink>
+        <NavLink to="/orders/list">Orders List</NavLink>
       </Menu.Item>
       <Menu.Item key="order">
-        <NavLink activeClassName='ant-menu-item-selected' to="/product/order">order</NavLink>
+        <NavLink to="/orders/new">Make New Order</NavLink>
       </Menu.Item>
       <Menu.Item className='float-right' key="logout">
         <a onClick={() => dispatch(logout())}>Logout</a>

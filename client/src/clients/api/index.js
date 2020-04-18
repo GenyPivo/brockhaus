@@ -11,3 +11,7 @@ export function currentUser() {
 export function registration(data) {
   return post('/register', data);
 }
+
+export function getOrdersList() {
+  return get('/orders');
+}

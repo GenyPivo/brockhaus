@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 
 app.use('/', require('./routes/users'));
 app.use('/orders', require('./routes/orders'));
+app.use('/menu_items', require('./routes/menu_items'));
+
 
 app.use((err, req, res, next) => {
   handleError(err, res);

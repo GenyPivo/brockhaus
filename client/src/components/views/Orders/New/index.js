@@ -1,95 +1,67 @@
-import React, { useState } from 'react';
-import { Typography, Button, Form, Input } from 'antd';
-import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Typography, Button, Form, Select, Input } from 'antd';
+import { addOrder } from '~/actions/orders';
+import { getMenuItemsList } from '~/clients/api';
 
-
+const { Option, OptGroup } = Select;
 const { Title } = Typography;
-const { TextArea } = Input;
 
+class NewOrder extends React.Component {
+  state = {
+    list: []
+  };
 
-export default function(props) {
+  async componentDidMount() {
+    let list;
 
-  const [TitleValue, setTitleValue] = useState("")
-  const [DescriptionValue, setDescriptionValue] = useState("")
-  const [PriceValue, setPriceValue] = useState(0)
-
-  const onTitleChange = (event) => {
-    setTitleValue(event.currentTarget.value)
-  }
-
-  const onDescriptionChange = (event) => {
-    setDescriptionValue(event.currentTarget.value)
-  }
-
-  const onPriceChange = (event) => {
-    setPriceValue(event.currentTarget.value)
-  }
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    if (!TitleValue || !DescriptionValue || !PriceValue) {
-      return alert('bitte füllen Sie auf')
+    try {
+      list = await getMenuItemsList();
+    } catch(e) {
+      return;
     }
 
-    const variables = {
-      writer: props.user.userData._id,
-      title: TitleValue,
-      description: DescriptionValue,
-      price: PriceValue
-    }
-
-    axios.post('/api/product/uploadProduct', variables)
-    .then(response => {
-      if (response.data.success) {
-        alert('Erfolgreich bestellt')
-        props.history.push('/')
-      }
-      else {
-        alert('Fehler')
-      }
-    })
+    this.setState({ list: list })
   }
 
-  return (
-    <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <Title level={2}> Bestellseite</Title>
-      </div>
+  onSubmit = () => this.props.addOrder(this.state.note, this.state.menuItemIds);
 
-      <Form onSubmit={onSubmit} >
+  handleSelectChange = (ids) => this.setState({ menuItemIds: ids });
+  handleNoteChange = (e) => this.setState({ note: e.target.value });
+
+  render() {
+    const options = this.state.list
+      .reduce((acc, item) => [
+        ...acc,
+        <Option key={item.get('id')}>{item.get('title')}</Option>
+      ], []);
 
 
-        <br />
-        <br />
-        <label>Title</label>
-        <Input
-          onChange={onTitleChange}
-          value={TitleValue}
-        />
-        <br />
-        <br />
-        <label>Description</label>
-        <TextArea
-          onChange={onDescriptionChange}
-          value={DescriptionValue}
-        />
-        <br />
-        <br />
-        <label>Price(€)</label>
-        <Input
-          onChange={onPriceChange}
-          value={PriceValue}
-          type="number"
-        />
-        
-        <br />
-        <br />
-
-        <Button onClick={onSubmit}>
-          Submit
+    return (
+      <Form onSubmit={this.onSubmit} className='make-order-form'>
+        <Title level={2}>Bestellseite</Title>
+        <label htmlFor='menu-list' style={{ color: '#000', marginBottom: 8 }}>Select what you want:</label>
+        <Select
+          id='menu-list'
+          name='menu-list'
+          mode="multiple"
+          style={{ maxWidth: '350px' }}
+          placeholder="Select menu item"
+          onChange={this.handleSelectChange}
+        >
+          <OptGroup label='Menu'>
+            {options}
+          </OptGroup>
+        </Select>
+        <Form.Item name='note' label='Leave your note if needed' onChange={this.handleNoteChange} >
+          <Input.TextArea rows={4} placeholder="Note" />
+        </Form.Item>
+        <Button type='primary' htmlType='submit'>
+          Make order
         </Button>
       </Form>
-    </div>
-  )
-};
+    )
+  }
+}
+
+export default connect(null, { addOrder })(NewOrder);

@@ -13,12 +13,14 @@ import NewOrder from './views/Orders/New';
 import OrdersList from './views/Orders/List';
 
 import { loginCheck } from '~/actions/user';
+import { fetchOrdersList } from '~/actions/orders';
 
 const { Header, Content } = Layout;
 
 class App extends React.Component {
   componentDidMount() {
     this.props.loginCheck();
+    this.props.fetchOrdersList();
   }
 
   render() {
@@ -33,7 +35,7 @@ class App extends React.Component {
             <Route exact path="/login" component={LoginPage}/>
             <Route exact path="/register" component={Registration}/>
             <Route exact path="/orders/new" component={NewOrder}/>
-            <Route exact path="/orders/list" component={OrdersList}/>
+            <Route exact path="/orders" component={OrdersList}/>
           </Switch>
         </Content>
         <Footer/>
@@ -42,4 +44,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { loginCheck })(App);
+export default connect(null, { loginCheck, fetchOrdersList })(App);

@@ -8,13 +8,13 @@ export default class UnauthorizedNav extends React.Component {
     return (
       <Menu mode='horizontal' theme='dark'>
         <Menu.Item key="home">
-          <NavLink to='/'>Home</NavLink>
+          <NavLink exact to='/'>Home</NavLink>
         </Menu.Item>
-        <Menu.Item key="register" className='float-right'>
+        <Menu.Item exact key="register" className='float-right'>
           <NavLink to='/register'>Sign up</NavLink>
         </Menu.Item>
         <Menu.Item key="login" className='float-right'>
-          <NavLink to='/login'>Sign in</NavLink>
+          <NavLink exact to='/login'>Sign in</NavLink>
         </Menu.Item>
       </Menu>
     )

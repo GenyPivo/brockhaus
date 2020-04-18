@@ -64,10 +64,20 @@ input.error {
 }
 
 .ant-list-item-meta-description {
-  max-width: 350px;
+  width: 350px;
 }
 
 .pay-button {
   padding: 5px !important;
   margin-left: 10px;
+}
+
+.make-order-form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.make-order-form button {
+  margin-top: 10px;
 }

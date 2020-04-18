@@ -12,6 +12,14 @@ export function registration(data) {
   return post('/register', data);
 }
 
-export function getOrdersList() {
+export function ordersList() {
   return get('/orders');
+}
+
+export function createOrder(note, menuItemIds) {
+  return post('/orders', { note, menuItemIds });
+}
+
+export function getMenuItemsList() {
+  return get('/menu_items');
 }

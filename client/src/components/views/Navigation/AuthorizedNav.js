@@ -10,10 +10,10 @@ export default function() {
   return (
     <Menu mode='horizontal' theme='dark'>
       <Menu.Item key="history">
-        <NavLink to="/orders/list">Orders List</NavLink>
+        <NavLink exact to="/orders">Orders List</NavLink>
       </Menu.Item>
       <Menu.Item key="order">
-        <NavLink to="/orders/new">Make New Order</NavLink>
+        <NavLink exact to="/orders/new">Make New Order</NavLink>
       </Menu.Item>
       <Menu.Item className='float-right' key="logout">
         <a onClick={() => dispatch(logout())}>Logout</a>
